@@ -1,8 +1,3 @@
-# React + Vite
+01/30/25: This is a test full stack from a front end client to a simple backend api I've written; I'm testing GET, POST, PUT, & DELETE for a separate project I'm working on;
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+01/31/25: This update is mainly for some maintenance; I've changed around my fetch request to be used upon a button click & have employed a try-catch and the && operator for graceful error handling;

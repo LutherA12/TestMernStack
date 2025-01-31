@@ -5,26 +5,67 @@ export default function App() {
   const [backendData, setBackendData] = useState([{}]);
   const SERVER_URL = "/api";
 
-  useEffect(() => {
-    fetch(SERVER_URL)
-      .then((res) => res.json())
-      .then((data) => {
-        setBackendData(data);
-      });
-  }, []);
+  const styles = {
+    backgroundColor: "lightcoral",
+    width: "70vw",
+    height: "70vh",
+    color: "black",
+    border: "1px solid black",
+  };
 
-  return <div></div>;
+  const getRequest = () => {
+    try {
+      fetch(SERVER_URL)
+        .then((res) => res.json())
+        .then((data) => {
+          setBackendData(data);
+        });
+    } catch (error) {
+      console.log(`Error fetching data ${error}`);
+    }
+  };
+
+  const postRequest = () => {};
+
+  const putRequest = () => {};
+
+  const deleteRequest = () => {};
+
+  return (
+    <div>
+      <div>
+        <button type="button" onClick={getRequest}>
+          Click to get info from api
+        </button>
+      </div>
+      <div style={styles}>
+        {backendData.users &&
+          backendData.users.map((users, key) => {
+            return <p key={key}>{users}</p>;
+          })}
+      </div>
+      <div>
+        <button type="button" onClick={postRequest}>
+          Click to post info to api
+        </button>
+        <button type="button" onClick={putRequest}>
+          Click to update info to api
+        </button>
+        <button type="button" onClick={deleteRequest}>
+          Click to delete info from api
+        </button>
+      </div>
+    </div>
+  );
 }
 
 /**
- * 
- *         backendData.users.map((users, key) => {
-          <div key={key}>
-            {users}
-            <p style={{ color: "white" }}>something</p>
-          </div>;
-        })
- * 
- * 
+ *         {typeof backendData.users === "undefined" ? (
+          <p>Loading...</p>
+        ) : (
+          backendData.users.map((users, key) => {
+            <p key={key}>{users}</p>;
+          })
+        )}
  * 
  */
