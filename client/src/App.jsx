@@ -1,31 +1,47 @@
 import "./App.Styles.scss";
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 
 export default function App() {
-  const [backendData, setBackendData] = useState([{}]);
+  //const envVar = import.meta.env;
+  const [mockUserData, setMockUserData] = useState([]);
   const SERVER_URL = "/api";
+  const POST_URL = "http://localhost:5000/api";
 
-  const styles = {
-    backgroundColor: "lightcoral",
-    width: "70vw",
-    height: "70vh",
-    color: "black",
-    border: "1px solid black",
-  };
-
-  const getRequest = () => {
+  const getRequest = async () => {
     try {
-      fetch(SERVER_URL)
-        .then((res) => res.json())
-        .then((data) => {
-          setBackendData(data);
-        });
+      const response = await fetch(SERVER_URL);
+      const result = await response.json();
+
+      console.log(result);
+      setMockUserData(result);
     } catch (error) {
       console.log(`Error fetching data ${error}`);
     }
   };
 
-  const postRequest = () => {};
+  const postRequest = () => {
+    try {
+      const newUser = {
+        id: 4,
+        name: "Dana Doe",
+        age: 12,
+      };
+
+      const newUserRes = fetch(POST_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      const newUserResJson = newUserRes.json();
+
+      console.log(newUserResJson);
+    } catch (error) {
+      console.log(`Error posting data ${error}`);
+    }
+  };
 
   const putRequest = () => {};
 
@@ -38,10 +54,15 @@ export default function App() {
           Click to get info from api
         </button>
       </div>
-      <div style={styles}>
-        {backendData.users &&
-          backendData.users.map((users, key) => {
-            return <p key={key}>{users}</p>;
+      <div className="info-div">
+        {mockUserData &&
+          mockUserData.map((user, key) => {
+            return (
+              <div key={key}>
+                <div>{user.name}</div>
+                <div>{user.age}</div>
+              </div>
+            );
           })}
       </div>
       <div>
@@ -58,14 +79,3 @@ export default function App() {
     </div>
   );
 }
-
-/**
- *         {typeof backendData.users === "undefined" ? (
-          <p>Loading...</p>
-        ) : (
-          backendData.users.map((users, key) => {
-            <p key={key}>{users}</p>;
-          })
-        )}
- * 
- */
